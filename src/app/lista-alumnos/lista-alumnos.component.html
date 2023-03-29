@@ -1,0 +1,78 @@
+<!--
+  Ejercicio nro 1. NG FOR / NG IF
+  - Ocultar app-loading despues de 2000ms (2s) (simulando un fake loading) utilizando *ngIf y en su lugar mostrar la tabla de usuarios.
+  - Completar el contenido del tbody de la tabla de usuarios utilizando *ngFor
+-->
+
+<!--
+  Ejercicio Extra. NG CLASS https://getbootstrap.com/docs/5.3/content/tables/
+  - El modelo de Usuario (ver carpeta models/usuario.model.ts) tiene una propiedad isTop10, si esa propiedad es true
+  pintar la fila de la tabla aplicando la clase 'table-success'
+-->
+
+<app-loading *ngIf="loading"></app-loading>
+<div class="container-fluid">
+  <h1 class="mb-3" [ngClass]="tituloTabla ? 'success' : 'error'">
+      
+    Tabla de Alumnos
+  </h1>
+  <table class="table">
+    <thead>
+      <tr  [ngClass]="{
+        successColumna: tituloColumna,
+        errorColumna: !tituloColumna
+        }" [ngStyle]="{'font-size': getFontSize(1)}"    
+      >
+        <th scope="col">#</th>
+        <th scope="col">Nombre Completo</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Edad</th>
+        <th scope="col">Fecha de nacimiento</th>
+        <th scope="col">Pais</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let usuario of usuarios"  [ngClass]="usuario.isTop10 ? 'table-success' : ''">
+          <td>{{usuario.id}}</td>
+          <td>{{usuario.fullName | uppercase }}</td>
+          <td>{{usuario.email | lowercase }}</td>
+          <td>{{usuario.age}}</td>
+          <td>{{usuario.birthdate | date: 'medium' }}</td>
+          <td>{{usuario.pais | titlecase }}</td>
+          <!-- EL CLICK ES UNA EMISION () DE ELEMENTO A COMPONENTE -->
+          <!-- EL ATRIBUTO [ID] ES UN TRASPASO DE DATA DE COMPONENTE A ELEMENTO -->
+          <!-- [()] ENLAZAMIENDO DE DOS VIAS -->
+          <!-- <td><button [id]="usuario.id" (click)="usuario.alternarTop10($event)">Alternar top10</button></td>-->
+        </tr>
+      </tbody>
+  </table>
+
+
+
+  <!-- <table class="table table-stripped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nombre completo</th> <!-- Ojo aqui, nombre COMPLETO-->
+        <!-- <th>E-mail</th>
+        <th>Edad</th>
+        <th>Fecha de nacimiento</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios"  [ngClass]="usuario.isTop10 ? 'table-success' : ''">
+        <td>{{usuario.id}}</td>
+        <td>{{usuario.fullName | uppercase }}</td>
+        <td>{{usuario.email}}</td>
+        <td>{{usuario.age}}</td>
+        <td>{{usuario.birthdate | date: 'medium' }}</td> --> 
+        <!-- EL CLICK ES UNA EMISION () DE ELEMENTO A COMPONENTE -->
+        <!-- EL ATRIBUTO [ID] ES UN TRASPASO DE DATA DE COMPONENTE A ELEMENTO -->
+        <!-- [()] ENLAZAMIENDO DE DOS VIAS -->
+        <!-- <td><button [id]="usuario.id" (click)="usuario.alternarTop10($event)">Alternar top10</button></td>
+      </tr>
+    </tbody>
+  </table> -->
+</div>
+
